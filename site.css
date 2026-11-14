@@ -1,0 +1,254 @@
+/* DG Estética Automotiva · camada própria do site.
+   O motor (scrollcraft.css/js) fica intocado. Aqui: tokens, fonte, barra, e os
+   atos 2 e 4. O ato 4 (colagem de serviços) é guiado só por --sc-p, o
+   progresso que o motor publica na <section>. */
+
+@font-face { font-family: "Exo 2"; font-weight: 500; font-style: normal; font-display: swap; src: url(assets/fonts/Exo2-normal-500.woff) format("woff"); }
+@font-face { font-family: "Exo 2"; font-weight: 700; font-style: normal; font-display: swap; src: url(assets/fonts/Exo2-normal-700.woff) format("woff"); }
+@font-face { font-family: "Exo 2"; font-weight: 800; font-style: normal; font-display: swap; src: url(assets/fonts/Exo2-normal-800.woff) format("woff"); }
+@font-face { font-family: "Exo 2"; font-weight: 800; font-style: italic; font-display: swap; src: url(assets/fonts/Exo2-italic-800.woff) format("woff"); }
+@font-face { font-family: "Exo 2"; font-weight: 900; font-style: italic; font-display: swap; src: url(assets/fonts/Exo2-italic-900.woff) format("woff"); }
+
+:root {
+  --sc-canvas:     #0b0b0c;
+  --sc-surface:    #17191c;
+  --sc-ink:        #f3f1ee;
+  --sc-ink-soft:   #bab3ab;
+  --sc-accent:     #ff6a00;
+  --sc-accent-ink: #0b0b0c;
+  --sc-font-display: "Exo 2", system-ui, sans-serif;
+  --sc-font-text:    "Exo 2", system-ui, sans-serif;
+  --sc-shadow-color: 20 30% 2%;
+}
+
+picture { display: contents; }
+.sc-grain { opacity: 0.025; }
+.sc-display em { font-style: italic; }
+
+/* ---------- barra fixa ---------- */
+.bar {
+  position: fixed; inset: 0 0 auto 0; z-index: 60;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: clamp(0.8rem, 1.6vw, 1.3rem) var(--sc-gutter);
+}
+.bar::before {
+  content: ""; position: absolute; inset: 0 0 -2.6rem 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(to bottom, color-mix(in oklab, var(--sc-canvas) 80%, transparent), transparent);
+}
+.bar__brand {
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  color: var(--sc-ink); text-decoration: none;
+  font-weight: 800; font-size: var(--sc-t-sm); letter-spacing: 0.02em;
+}
+.bar__brand img { width: 2rem; height: 2rem; object-fit: contain; }
+
+/* ---------- botão (um rótulo só: Falar no WhatsApp) ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.85rem 1.4rem; border-radius: var(--sc-r-sm);
+  background: var(--sc-accent); color: var(--sc-accent-ink);
+  font: 800 var(--sc-t-sm)/1 var(--sc-font-display); letter-spacing: 0.01em;
+  text-decoration: none; white-space: nowrap;
+  box-shadow: var(--sc-e2), var(--sc-edge);
+  transition: transform var(--sc-d-fast) var(--sc-ease-out), background-color var(--sc-d-fast) var(--sc-ease-out);
+}
+.btn--sm { padding: 0.65rem 1.05rem; }
+.btn:focus-visible, .tag:focus-visible, .bar__brand:focus-visible {
+  outline: 2px solid var(--sc-ink); outline-offset: 3px;
+}
+.btn:active { transform: translateY(1px); }
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { background: color-mix(in oklab, var(--sc-accent) 88%, white); }
+}
+.hero-cta { margin-top: var(--sc-5); }
+
+
+/* ---------- ato 1: o filme (um vídeo só, texto no ritmo do enredo) ---------- */
+/* Duas colunas de densidade, irmãs do texto. A da esquerda serve à primeira
+   metade (lavagem e polimento) e some quando o enredo muda para o farol; a da
+   direita entra para as duas frases finais. Só opacity, guiada por --sc-p. */
+.film-veil { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.film-veil--l {
+  background: linear-gradient(90deg,
+    color-mix(in oklab, var(--sc-canvas) 94%, transparent) 0%,
+    color-mix(in oklab, var(--sc-canvas) 88%, transparent) 26%,
+    color-mix(in oklab, var(--sc-canvas) 44%, transparent) 40%,
+    transparent 54%);
+  opacity: clamp(0, calc(1 - (var(--sc-p, 0) - 0.6) / 0.06), 1);
+}
+.film-veil--r {
+  background: linear-gradient(to top,
+    color-mix(in oklab, var(--sc-canvas) 80%, transparent) 0%,
+    color-mix(in oklab, var(--sc-canvas) 40%, transparent) 30%,
+    transparent 58%);
+  opacity: clamp(0, calc((var(--sc-p, 0) - 0.62) / 0.05), 1);
+}
+.film .sc-copy { z-index: 3; }
+.film .sc-copy--lead { max-width: min(30rem, 36vw); }
+.film .sc-display--xl { font-size: var(--sc-t-3xl); }
+.film__line {
+  position: absolute; z-index: 3; left: var(--sc-gutter); bottom: clamp(4rem, 17vh, 9rem);
+  width: min(17ch, 33vw); margin: 0;
+  font: 800 var(--sc-t-2xl)/1.04 var(--sc-font-display);
+  letter-spacing: var(--sc-track-tight); text-wrap: balance;
+}
+.film__line--em { font-style: italic; }
+.film__line--r {
+  left: auto; right: var(--sc-gutter); width: auto; max-width: 20ch; text-align: right;
+  font-size: var(--sc-t-2xl); bottom: clamp(3rem, 11vh, 6rem);
+}
+
+/* ---------- ato 4: a colagem de serviços ---------- */
+.fin { background: var(--sc-canvas); overflow: hidden; }
+
+/* cada peça anima por uma janela [--s, --s + --w] do progresso do ato,
+   com saída suave (ease-out cúbico) calculada em CSS. Sem JS, p = 1: tudo montado. */
+.fin :is(.fin__big, .fin__word, .card, .tagwrap) {
+  --t: clamp(0, (var(--sc-p, 1) - var(--s, 0)) / var(--w, 0.25), 1);
+  --e: calc(1 - (1 - var(--t)) * (1 - var(--t)) * (1 - var(--t)));
+}
+
+.fin__bg {
+  position: absolute; left: 0; top: 0; width: 100%; height: 68vh;
+  object-fit: cover; object-position: 50% 80%;
+  transform: scale(calc(1 + 0.05 * var(--sc-p, 1))); transform-origin: 50% 60%;
+}
+.fin__veil {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(to bottom, color-mix(in oklab, var(--sc-canvas) 90%, transparent) 0%, transparent 34%),
+    linear-gradient(to top, var(--sc-canvas) 0%, color-mix(in oklab, var(--sc-canvas) 94%, transparent) 36%, transparent 60%);
+}
+
+/* palavra grande no topo (DETALHES) */
+.fin__big {
+  --s: 0; --w: 0.2;
+  position: absolute; z-index: 1; left: 47%; top: clamp(4.4rem, 12vh, 8rem); margin: 0;
+  font: 900 italic clamp(3.6rem, 12vw, 13rem)/0.9 var(--sc-font-display);
+  letter-spacing: -0.04em; text-transform: uppercase; white-space: nowrap;
+  color: var(--sc-ink);
+  opacity: var(--e);
+  transform: translate3d(-50%, calc((1 - var(--e)) * -6vh), 0);
+}
+
+/* "Destaques", sobreposto aos cards, entrando pela direita */
+.fin__h2 { display: contents; margin: 0; }
+.fin__word {
+  position: absolute; z-index: 4; margin: 0;
+  font: 800 italic var(--fs)/0.9 var(--sc-font-display);
+  letter-spacing: -0.03em; text-transform: uppercase; white-space: nowrap;
+  color: var(--sc-ink);
+  text-shadow: 0 0.06em 0.28em hsl(var(--sc-shadow-color) / 0.6);
+  opacity: var(--e);
+}
+.fin__word--a { --s: 0.4; --w: 0.3; --fs: clamp(1.8rem, 4.4vw, 5.2rem); left: 8.8vw; top: calc(56vh - 0.92 * var(--fs));
+  transform: translate3d(calc((1 - var(--e)) * 24vw), 0, 0); }
+
+/* cards: sobem de baixo da tela, um depois do outro */
+.fin__cards { list-style: none; margin: 0; padding: 0; display: contents; }
+.card {
+  position: absolute; z-index: 2; margin: 0;
+  transform: translate3d(0, calc((1 - var(--e)) * 112vh), 0);
+}
+.card--a { --s: 0.04; --w: 0.3;  left: 8vw;    top: 56vh; width: 18vw; height: 36vh; }
+.card--c { --s: 0.12; --w: 0.3;  left: 46.5vw; top: 63vh; width: 18vw; height: 29vh; }
+.card--d { --s: 0.2;  --w: 0.3;  left: 67vw;   top: 52vh; width: 19vw; height: 40vh; }
+.card--b { --s: 0.28; --w: 0.28; left: 28vw;   top: 73vh; width: 17vw; height: 19vh; }
+.card__in {
+  position: relative; display: block; width: 100%; height: 100%; margin: 0; padding: 0; border: 0;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+  border-radius: var(--sc-r-sm); overflow: hidden; background: var(--sc-surface);
+  box-shadow: var(--sc-e3), var(--sc-edge);
+}
+.card__in:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .card__in img { transition: transform 220ms var(--sc-ease-out); }
+  .card__in:hover img { transform: scale(1.04); }
+}
+.card__in img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.card__in::after {
+  content: ""; position: absolute; inset: auto 0 0 0; height: 46%; z-index: 0; pointer-events: none;
+  background: linear-gradient(to top, color-mix(in oklab, var(--sc-canvas) 88%, transparent), transparent);
+}
+.card__cap {
+  position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; padding: 0.8rem 0.9rem;
+  font: 700 var(--sc-t-sm)/1.15 var(--sc-font-display); color: var(--sc-ink);
+}
+
+/* etiqueta de contato, a última a chegar */
+.tagwrap {
+  --s: 0.5; --w: 0.22;
+  position: absolute; z-index: 5; left: 79vw; top: 20vh; width: 18vw;
+  opacity: var(--e);
+  transform: translate3d(calc((1 - var(--e)) * 14vw), 0, 0);
+}
+.tag {
+  display: grid; grid-template-columns: 36% 1fr; align-items: stretch;
+  height: clamp(3.4rem, 8vh, 5rem);
+  border-radius: var(--sc-r-sm); overflow: hidden; text-decoration: none;
+  background: var(--sc-accent); color: var(--sc-accent-ink);
+  box-shadow: var(--sc-e3), var(--sc-edge);
+}
+.tag img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tag__txt {
+  display: flex; align-items: center; padding: 0 0.8rem;
+  font: 800 var(--sc-t-sm)/1.1 var(--sc-font-display); white-space: nowrap;
+}
+
+.fin__foot {
+  position: absolute; z-index: 6; inset: auto 0 0 0; height: 7vh; min-height: 2.6rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 0 var(--sc-gutter); background: var(--sc-canvas);
+  font: 500 var(--sc-t-xs)/1 var(--sc-font-text); color: var(--sc-ink-soft); letter-spacing: 0.04em;
+}
+
+/* ---------- celular e telas estreitas ---------- */
+@media (max-width: 860px) {
+  .bar__name { display: none; }
+  .sc-display--xl, .film .sc-display--xl { font-size: var(--sc-t-2xl); }
+  .film .sc-copy--lead { max-width: none; }
+  .film__line { width: min(20ch, 78vw); font-size: clamp(1.7rem, 7.4vw, 2.4rem); bottom: 18vh; }
+  .film__line--r { right: var(--sc-gutter); left: var(--sc-gutter); width: auto; max-width: none; font-size: clamp(1.8rem, 8vw, 2.6rem); bottom: 11vh; }
+  .film-veil--l, .film-veil--r { background: linear-gradient(to top,
+    color-mix(in oklab, var(--sc-canvas) 88%, transparent) 0%,
+    color-mix(in oklab, var(--sc-canvas) 62%, transparent) 36%,
+    transparent 66%); }
+
+  .fin__bg { height: 56vh; object-position: 50% 30%; }
+  .fin__big { font-size: 16.5vw; top: 5.2rem; }
+  .fin__word--a { --fs: 8vw; left: 5vw; top: calc(51vh - 0.92 * var(--fs)); }
+  .card--a { left: 4vw;  top: 51vh; width: 44vw; height: 35vh; }
+  .card--d { left: 52vw; top: 47vh; width: 44vw; height: 20vh; }
+  .card--c { left: 52vw; top: 69vh; width: 44vw; height: 17vh; }
+  .card--b { display: none; }
+  .tagwrap { left: 4vw; top: 88vh; width: 92vw;
+    transform: translate3d(0, calc((1 - var(--e)) * 16vh), 0); }
+  .tag { height: 8vh; min-height: 3.2rem; grid-template-columns: 30% 1fr; }
+  .tag__txt { justify-content: center; font-size: var(--sc-t-base); }
+  .fin__foot { display: none; }
+}
+
+/* movimento reduzido: tudo já montado, sem deslocamento */
+@media (prefers-reduced-motion: reduce) {
+  .fin :is(.fin__big, .fin__word, .card, .tagwrap) { transform: none !important; opacity: 1 !important; }
+  .fin .fin__big { transform: translateX(-50%) !important; }
+  .fin__bg { transform: none; }
+}
+
+/* ---------- logo (#marca): o personagem encostado no emblema ---------- */
+.dg .hero-duo { position: relative; width: fit-content; margin: 0 auto; }
+.dg .hero-man {
+  --mh: min(76vh, 690px);
+  position: absolute; z-index: 1; pointer-events: none;
+  height: var(--mh); width: auto; max-width: none;
+  /* o ombro esquerdo dele (26% da largura da figura) encosta na borda direita do emblema */
+  left: calc(100% - 0.26 * var(--mh) * 0.588 + 8px); top: -1.2rem;
+  filter: drop-shadow(0 1.4rem 2.2rem hsl(var(--sc-shadow-color) / 0.55));
+}
+.dg .hero-content > :not(.hero-duo) { position: relative; z-index: 2; }
+@media (min-width: 861px) { .dg .hero-content .hero-description { max-width: 27rem; } }
+@media (max-width: 860px) {
+  .dg .hero-duo { width: 100%; display: flex; align-items: flex-end; justify-content: center; margin-top: 3rem; }
+  .dg .hero-duo .hero-emblem { width: 58%; flex: none; }
+  .dg .hero-man { position: relative; left: auto; top: auto; --mh: auto; height: auto; width: 38%; flex: none; margin-left: -10%; }
+}

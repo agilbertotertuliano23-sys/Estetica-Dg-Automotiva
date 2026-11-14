@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DG Estética Automotiva · Cuidado em cada detalhe</title>
+<meta name="description" content="Lavagem técnica, polimento e vitrificação para carros e motos. Fale com a DG no WhatsApp.">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="icon" href="assets/emblem.webp" type="image/webp">
+<link rel="preload" href="assets/fonts/Exo2-normal-800.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="scrollcraft.css">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="dg.css">
+</head>
+<body>
+
+<span data-sc-progress></span>
+<div class="sc-grain" aria-hidden="true"></div>
+
+<header class="bar">
+  <a class="bar__brand" href="#top" aria-label="DG Estética Automotiva, início">
+    <img src="assets/emblem.webp" alt="" width="32" height="32">
+    <span class="bar__name">DG Estética Automotiva</span>
+  </a>
+  <a class="btn btn--sm" href="https://wa.me/5583999080287" target="_blank" rel="noopener">Falar no WhatsApp</a>
+</header>
+
+<main id="top">
+
+  <!-- 1 · O FILME: um vídeo só (lavagem, polimento, farol, flash, plano final).
+       O texto segue o enredo dele; a rolagem é o scrubber. -->
+  <section data-sc-act="scrub" data-sc-span="6.4" data-sc-dwell="0.1" data-sc-drift="#0b0b0c"
+           aria-label="Um carro e uma moto sujos são lavados e polidos, a câmera entra no farol, um clarão de luz e os dois aparecem prontos na garagem">
+    <div data-sc-stage class="film">
+      <picture>
+        <source media="(prefers-reduced-motion: reduce) and (max-width: 860px)" srcset="assets/end-h1-m.webp">
+        <source media="(prefers-reduced-motion: reduce)" srcset="assets/end-h1.webp">
+        <source media="(max-width: 860px)" srcset="assets/poster-h1-m.webp">
+        <img class="sc-stage__poster" src="assets/poster-h1.webp" alt="" width="1920" height="1080">
+      </picture>
+      <video data-sc-scrub data-sc-src="assets/film.mp4" data-sc-src-mobile="assets/film-m.mp4"
+             muted playsinline aria-hidden="true"></video>
+      <div class="film-veil film-veil--l" aria-hidden="true"></div>
+      <div class="film-veil film-veil--r" aria-hidden="true"></div>
+
+      <div class="sc-copy sc-copy--lead" data-sc-cue="0 0.14 0">
+        <h2 class="sc-display sc-display--xl" data-sc-kinetic="lines">Cuidado em cada <em>detalhe.</em></h2>
+        <p class="sc-body">Estética automotiva para carros e motos.</p>
+        <a class="btn hero-cta" href="https://wa.me/5583999080287" target="_blank" rel="noopener">Falar no WhatsApp</a>
+      </div>
+      <p class="film__line" data-sc-cue="0.12 0.3">A sujeira sai com água, espuma e mão leve.</p>
+      <p class="film__line" data-sc-cue="0.26 0.42">O polimento devolve o brilho que o tempo tirou.</p>
+      <p class="film__line" data-sc-cue="0.38 0.52">A vitrificação protege a pintura.</p>
+      <p class="film__line film__line--em" data-sc-cue="0.48 0.62">Para o carro e para a moto, o mesmo cuidado.</p>
+      <p class="film__line film__line--r" data-sc-cue="0.64 0.74">Detalhe por detalhe.</p>
+      <p class="film__line film__line--r" data-sc-cue="0.91 1">O brilho volta.</p>
+    </div>
+  </section>
+
+  <!-- 4 · DESEJO E AÇÃO: pin, os cards sobem e formam a colagem de serviços -->
+  <section id="destaques" data-sc-act="pin" data-sc-span="3.6" data-sc-drift="#0b0b0c" aria-labelledby="fin-title">
+    <div data-sc-stage class="fin">
+      <picture>
+        <source media="(max-width: 860px)" srcset="assets/end-h2-m.webp">
+        <img class="fin__bg" src="assets/end-h2.webp" alt="Carro azul e moto esportiva azul lado a lado na garagem, com fumaça baixa" width="1920" height="1080">
+      </picture>
+      <div class="fin__veil" aria-hidden="true"></div>
+
+      <p class="fin__big" aria-hidden="true">Detalhes</p>
+      <h2 id="fin-title" class="fin__h2"><span class="fin__word fin__word--a">Destaques</span></h2>
+
+      <ul class="fin__cards" role="list">
+        <li class="card card--a">
+          <button class="card__in" type="button" data-sc-tilt="6" data-service="Rodas e pneus" aria-haspopup="dialog">
+            <img src="assets/card-rodas.webp" alt="" width="1000" height="1000">
+            <span class="card__cap">Rodas e pneus</span>
+          </button>
+        </li>
+        <li class="card card--c">
+          <button class="card__in" type="button" data-sc-tilt="6" data-service="Lavagem técnica" aria-haspopup="dialog">
+            <img src="assets/card-lavagem.webp" alt="" width="1000" height="667">
+            <span class="card__cap">Lavagem técnica</span>
+          </button>
+        </li>
+        <li class="card card--d">
+          <button class="card__in" type="button" data-sc-tilt="6" data-service="Polimento técnico" aria-haspopup="dialog">
+            <img src="assets/card-pintura.webp" alt="" width="1000" height="667">
+            <span class="card__cap">Polimento técnico</span>
+          </button>
+        </li>
+        <li class="card card--b">
+          <button class="card__in" type="button" data-sc-tilt="6" data-service="Couro e plásticos" aria-haspopup="dialog">
+            <img src="assets/card-interior.webp" alt="" width="1000" height="914">
+            <span class="card__cap">Couro e plásticos</span>
+          </button>
+        </li>
+      </ul>
+
+      <div class="tagwrap">
+        <a class="tag" href="https://wa.me/5583999080287" target="_blank" rel="noopener" data-sc-magnet="0.24">
+          <img src="assets/card-vitrificacao.webp" alt="" width="1100" height="619">
+          <span class="tag__txt">Falar no WhatsApp</span>
+        </a>
+      </div>
+
+      <footer class="fin__foot">
+        <span>DG Estética Automotiva</span>
+        <span>(83) 99908-0287</span>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<div class="dg">
+  <div class="dot-bg is-off" aria-hidden="true"><canvas></canvas></div>
+  <main id="conteudo">
+    <section class="hero hero-bridge" id="marca" aria-labelledby="hero-title">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="container hero-content">
+        <div class="hero-duo"><img class="hero-emblem" src="assets/dg-emblem-neon.webp" width="800" height="729" alt="Emblema 3D da DG: carro esportivo preto sobre escudo neon laranja" fetchpriority="high"><img class="hero-man" src="assets/personagem-dg.webp" width="900" height="1530" alt="Homem sorrindo de braços cruzados, com a camiseta da DG Estética Automotiva" loading="lazy"></div>
+        <p class="eyebrow hero-eyebrow"><span class="eyebrow-line"></span> PRECISÃO EM CADA DETALHE <span class="eyebrow-line"></span></p>
+        <h1 id="hero-title">DG Estética <em>Automotiva</em></h1>
+        <p class="hero-description">Cuidado técnico para pintura, interior e acabamento. Uma atenção que você percebe em cada detalhe do seu carro.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#servicos">Explore os serviços</a>
+          <a class="button button-outline button-cal" href="tel:+5583999080287"><svg class="ig-icon cal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/><path d="M8.5 14h.01M12 14h.01M15.5 14h.01M8.5 17.2h.01M12 17.2h.01"/></svg>Agende uma avaliação</a>
+        </div>
+        <span class="hero-scroll" aria-hidden="true">ROLE PARA EXPLORAR <span>↓</span></span>
+      </div>
+    </section>
+
+    <section class="detail section-pad" id="detalhes" aria-labelledby="detail-title">
+      <div class="container">
+        <div class="ref-panel">
+          <div class="ref-hero">
+            <div class="ref-left">
+              <img class="ref-figure" src="assets/painel-3d-servicos.webp" width="1000" height="1094" alt="Painel 3D de Estética Automotiva com menu Serviços, Agendamentos, Pacotes, Promoções e Avaliações e cards de polimento, higienização, vitrificação e hidratação de couro" loading="lazy">
+            </div>
+            <div class="ref-copy">
+              <h2 id="detail-title">Detalhes que<br>você <em>enxerga.</em></h2>
+              <p>Da pintura às rodas e ao interior, a DG cuida de cada superfície com atenção técnica. Do hatch à picape, o resultado aparece primeiro nos reflexos e nos acabamentos.</p>
+              <div class="ref-actions">
+                <a class="button button-primary button-cal" href="tel:+5583999080287"><svg class="ig-icon cal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/><path d="M8.5 14h.01M12 14h.01M15.5 14h.01M8.5 17.2h.01M12 17.2h.01"/></svg>Agende uma avaliação</a>
+                <a class="text-link" href="#servicos">Ver serviços</a>
+              </div>
+            </div>
+          </div>
+          <div class="ref-bento">
+            <a class="ref-cell" href="#servicos"><span class="ref-cell-text"><small>INTERIOR</small><b>Couro e conforto</b><em>Ver interior</em></span><span class="seq-tag" aria-hidden="true">LIMPANDO</span><video class="seq on" data-seq src="assets/detalhes-videos/interior-hilux.mp4" muted playsinline autoplay preload="metadata" aria-label="Limpeza do painel e do volante dentro da cabine"></video><video class="seq" data-seq src="assets/detalhes-videos/painel-porta.mp4" muted playsinline preload="metadata" aria-label="Resultado: painel da porta limpo e em acabamento impecável"></video></a>
+            <a class="ref-cell" href="#servicos"><span class="ref-cell-text"><small>MOTO</small><b>Lavagem com espuma</b><em>Ver serviços</em></span><video src="assets/detalhes-videos/moto-espuma.mp4" muted loop playsinline autoplay preload="metadata" aria-label="Moto sendo lavada com espuma na garagem"></video></a>
+            <a class="ref-cell" href="#servicos"><span class="ref-cell-text"><small>BANCOS</small><b>Limpeza profunda</b><em>Ver serviços</em></span><video src="assets/detalhes-videos/banco-limpeza.mp4" muted loop playsinline autoplay preload="metadata" aria-label="Banco de couro sendo limpo em profundidade"></video></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services section-pad" id="servicos" aria-labelledby="services-title">
+      <div class="container">
+        <div class="ref-panel services-panel">
+          <img class="services-tools" src="assets/servicos-ferramentas.webp" width="1400" height="788" alt="" aria-hidden="true" loading="lazy">
+          <div class="services-tab" aria-label="Serviços">
+            <span class="badge-dash" aria-hidden="true">-</span>
+            <span class="badge-text">SERVIÇOS</span>
+            <span class="badge-dash" aria-hidden="true">-</span>
+          </div>
+          <div class="section-heading centered">
+          <h2 id="services-title">Cuidado para <em>cada detalhe.</em></h2>
+          <p>Do primeiro contato com a carroceria aos últimos ajustes de acabamento: encontre o cuidado que seu carro precisa.</p>
+          <p class="service-hint">Dê dois cliques (ou dois toques) em um card para ver o serviço.</p>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card">
+            <button class="service-open orb-card" type="button" data-title="Limpeza completa" data-image="assets/limpeza-frames/frames/exterior-10.png" data-video="assets/service-videos/demos/limpeza-completa.mp4" data-description="Exterior e interior tratados na mesma visita, sem você precisar combinar serviços separados." data-itens="Lavagem externa com espuma e acessórios apropriados|Limpeza interna da cabine, com atenção aos detalhes|Acabamento final antes da entrega" data-resultado="Carro limpo por fora e por dentro, numa só visita.">
+              <span class="orb-stage" style="--ar:524/316"><span class="orb-ring"></span><svg class="orb-bridge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C45 34 50 0 100 0V100C50 100 45 66 0 66Z"/></svg><span class="orb-art" role="img" aria-label="Carro esportivo preto passando de coberto de barro a brilhante, em dez etapas de limpeza" style="--strip:url(assets/limpeza-frames/animados/exterior-strip.webp)"></span></span>
+              <span class="orb-info"><span class="orb-tag">EXTERIOR + INTERIOR</span><span class="orb-title">Limpeza<br>completa</span><span class="orb-desc">Um cuidado de ponta a ponta.</span><span class="orb-cta">CONHECER SERVIÇO <b aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M8 7h9v9"/></svg></b></span></span>
+            </button>
+          </article>
+          <article class="service-card">
+            <button class="service-open orb-card" type="button" data-title="Higienização detalhada" data-image="assets/limpeza-frames/frames/interior-10.png" data-video="assets/service-videos/demos/higienizacao-detalhada.mp4" data-description="Limpeza profunda do interior, tratando cada área da cabine." data-itens="Descontaminação das portas, do painel e do console|Higienização dos bancos e do carpete|Revitalização do painel e das portas|Limpeza do teto|Cera de proteção como finalização opcional|Extras a pedido, como a descontaminação das borrachas das portas" data-resultado="Cabine limpa e com aspecto renovado.">
+              <span class="orb-stage" style="--ar:483/304"><span class="orb-ring"></span><svg class="orb-bridge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C45 34 50 0 100 0V100C50 100 45 66 0 66Z"/></svg><span class="orb-art" role="img" aria-label="Bancos de couro passando de sujos a impecáveis, em dez etapas de higienização" style="--strip:url(assets/limpeza-frames/animados/interior-strip.webp)"></span></span>
+              <span class="orb-info"><span class="orb-tag">INTERIOR</span><span class="orb-title">Higienização<br>detalhada</span><span class="orb-desc">Atenção ao que você toca.</span><span class="orb-cta">CONHECER SERVIÇO <b aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M8 7h9v9"/></svg></b></span></span>
+            </button>
+          </article>
+          <article class="service-card">
+            <button class="service-open orb-card" type="button" data-title="Lavagem técnica" data-image="assets/limpeza-frames/frames/lavagem-tecnica-10.png" data-video="assets/service-videos/demos/lavagem-tecnica.mp4" data-description="Lavagem feita com método, pensada para preservar a superfície do veículo." data-itens="Espuma para soltar a sujeira antes do contato|Acessórios apropriados para cada superfície|Cuidado com a pintura durante todo o processo" data-resultado="Carroceria limpa, sem agredir a pintura.">
+              <span class="orb-stage" style="--ar:492/287"><span class="orb-ring"></span><svg class="orb-bridge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C45 34 50 0 100 0V100C50 100 45 66 0 66Z"/></svg><span class="orb-art" role="img" aria-label="Supercarro neon coberto de poeira que recebe espuma e água e termina brilhante, em dez etapas" style="--strip:url(assets/limpeza-frames/animados/lavagem-tecnica-strip.webp)"></span></span>
+              <span class="orb-info"><span class="orb-tag">EXTERIOR</span><span class="orb-title">Lavagem<br>técnica</span><span class="orb-desc">O cuidado começa na lavagem.</span><span class="orb-cta">CONHECER SERVIÇO <b aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M8 7h9v9"/></svg></b></span></span>
+            </button>
+          </article>
+          <article class="service-card">
+            <button class="service-open orb-card" type="button" data-title="Descontaminação da pintura" data-image="assets/limpeza-frames/frames/descontaminacao-10.png" data-video="assets/service-videos/demos/descontaminacao-pintura.mp4" data-description="O passo que a lavagem comum não faz: tirar o que fica preso na pintura." data-itens="Barra de argila (clay bar) passada sobre a superfície molhada|Remoção das partículas presas, que a mão sente como aspereza|Pintura preparada para o polimento e para a proteção" data-resultado="Pintura lisa ao toque.">
+              <span class="orb-stage" style="--ar:493/319"><span class="orb-ring"></span><svg class="orb-bridge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C45 34 50 0 100 0V100C50 100 45 66 0 66Z"/></svg><span class="orb-art" role="img" aria-label="Carro preto com a pintura contaminada que é tratada com clay bar até ficar lisa, em dez etapas" style="--strip:url(assets/limpeza-frames/animados/descontaminacao-strip.webp)"></span></span>
+              <span class="orb-info"><span class="orb-tag">PINTURA</span><span class="orb-title">Descontaminação<br>da pintura</span><span class="orb-desc">Preparação para o acabamento.</span><span class="orb-cta">CONHECER SERVIÇO <b aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M8 7h9v9"/></svg></b></span></span>
+            </button>
+          </article>
+          <article class="service-card">
+            <button class="service-open orb-card" type="button" data-title="Polimento técnico" data-image="assets/limpeza-frames/frames/polimento-tecnico-10.png" data-video="assets/service-videos/demos/polimento-tecnico.mp4" data-description="Acabamento da pintura feito com critério, do olhar à ferramenta." data-itens="Inspeção visual da pintura antes de começar|Politriz com boina adequada à superfície|Trabalho de acabamento para realçar o brilho" data-resultado="Pintura com mais brilho e uniformidade.">
+              <span class="orb-stage" style="--ar:458/309"><span class="orb-ring"></span><svg class="orb-bridge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C45 34 50 0 100 0V100C50 100 45 66 0 66Z"/></svg><span class="orb-art" role="img" aria-label="Supercarro neon sendo polido por uma politriz até o acabamento espelhado, em dez etapas" style="--strip:url(assets/limpeza-frames/animados/polimento-tecnico-strip.webp)"></span></span>
+              <span class="orb-info"><span class="orb-tag">PINTURA</span><span class="orb-title">Polimento<br>técnico</span><span class="orb-desc">Acabamento visto de perto.</span><span class="orb-cta">CONHECER SERVIÇO <b aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M8 7h9v9"/></svg></b></span></span>
+            </button>
+          </article>
+          <article class="service-card">
+            <button class="service-open orb-card" type="button" data-title="Vitrificação da pintura" data-image="assets/limpeza-frames/frames/vitrificacao-10.png" data-video="assets/service-videos/demos/vitrificacao-pintura.mp4" data-source="https://www.instagram.com/reel/Db_trxcITHr/" data-description="Uma camada de proteção para a pintura, aplicada depois do preparo certo." data-itens="Preparo adequado da superfície antes da aplicação|Aplicação do produto de vitrificação|Etapa final de proteção da pintura" data-resultado="Pintura protegida e com brilho de acabamento.">
+              <span class="orb-stage" style="--ar:471/318"><span class="orb-ring"></span><svg class="orb-bridge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C45 34 50 0 100 0V100C50 100 45 66 0 66Z"/></svg><span class="orb-art" role="img" aria-label="Supercarro recebendo vitrificação com a rede hexagonal protetora surgindo na pintura, em dez etapas" style="--strip:url(assets/limpeza-frames/animados/vitrificacao-strip.webp)"></span></span>
+              <span class="orb-info"><span class="orb-tag">PROTEÇÃO</span><span class="orb-title">Vitrificação<br>da pintura</span><span class="orb-desc">Proteção depois da preparação.</span><span class="orb-cta">CONHECER SERVIÇO <b aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M8 7h9v9"/></svg></b></span></span>
+            </button>
+          </article>
+          <article class="service-card">
+            <button class="service-open orb-card" type="button" data-title="Couro e plásticos" data-image="assets/limpeza-frames/frames/couro-plasticos-10.png" data-video="assets/service-videos/demos/couro-plasticos.mp4" data-description="Cuidado direcionado às texturas do interior do carro." data-itens="Limpeza dos bancos de couro|Cuidado com os plásticos de portas e painel|Atenção às costuras e aos acabamentos internos" data-resultado="Interior com aspecto cuidado e uniforme.">
+              <span class="orb-stage" style="--ar:501/305"><span class="orb-ring"></span><svg class="orb-bridge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C45 34 50 0 100 0V100C50 100 45 66 0 66Z"/></svg><span class="orb-art" role="img" aria-label="Interior com couro e plásticos passando de ressecados a hidratados e brilhantes, em dez etapas" style="--strip:url(assets/limpeza-frames/animados/couro-plasticos-strip.webp)"></span></span>
+              <span class="orb-info"><span class="orb-tag">INTERIOR</span><span class="orb-title">Couro e<br>plásticos</span><span class="orb-desc">Materiais diferentes, cuidado certo.</span><span class="orb-cta">CONHECER SERVIÇO <b aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M8 7h9v9"/></svg></b></span></span>
+            </button>
+          </article>
+          <article class="service-card">
+            <button class="service-open orb-card" type="button" data-title="Rodas e pneus" data-image="assets/limpeza-frames/frames/rodas-pneus-10.png" data-video="assets/service-videos/demos/rodas-pneus.mp4" data-description="Limpeza dedicada às áreas que mais sofrem no uso diário." data-itens="Limpeza das rodas, inclusive dos raios|Limpeza dos pneus|Remoção de sujeira e resíduos acumulados" data-resultado="Rodas e pneus limpos, com visual renovado.">
+              <span class="orb-stage" style="--ar:474/321"><span class="orb-ring"></span><svg class="orb-bridge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C45 34 50 0 100 0V100C50 100 45 66 0 66Z"/></svg><span class="orb-art" role="img" aria-label="Roda e pneu sujos que são escovados, enxaguados e ficam reluzentes, em dez etapas" style="--strip:url(assets/limpeza-frames/animados/rodas-pneus-strip.webp)"></span></span>
+              <span class="orb-info"><span class="orb-tag">DETALHES</span><span class="orb-title">Rodas e<br>pneus</span><span class="orb-desc">Atenção até ao chão.</span><span class="orb-cta">CONHECER SERVIÇO <b aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M8 7h9v9"/></svg></b></span></span>
+            </button>
+          </article>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="process section-pad" id="processo" aria-labelledby="process-title">
+      <div class="container">
+      <div class="process-panel process-layout">
+        <div class="process-lead">
+          <h2 id="process-title">Do primeiro olhar<br>ao <em>último detalhe.</em></h2>
+          <p>Seu carro tem necessidades próprias. Uma avaliação ajuda a identificar o serviço indicado antes de começar.</p>
+          <a class="button button-primary" href="tel:+5583999080287">Converse com a DG</a>
+        </div>
+        <div class="process-list">
+          <div class="process-item"><div><h3>Entender</h3><p>Conte o que seu carro precisa e agende uma avaliação.</p></div></div>
+          <div class="process-item"><div><h3>Cuidar</h3><p>Escolha o serviço de acordo com a pintura, o interior e os acabamentos.</p></div></div>
+          <div class="process-item"><div><h3>Finalizar</h3><p>Os detalhes recebem atenção até a última etapa.</p></div></div>
+        </div>
+        <div class="quotes" aria-label="Depoimentos de clientes">
+          <!-- TEXTOS DE EXEMPLO: trocar por depoimentos reais de clientes antes de publicar -->
+          <div class="quotes-track">
+            <figure class="quote-card"><div class="quote-stars" aria-hidden="true">★★★★★</div><blockquote>Entreguei o carro com a pintura apagada e voltou com um brilho que eu não via há anos.</blockquote><figcaption><b>Cliente DG</b><span>Polimento técnico</span></figcaption></figure>
+            <figure class="quote-card"><div class="quote-stars" aria-hidden="true">★★★★★</div><blockquote>O interior ficou tão limpo que parecia carro novo. Notei a diferença até nas saídas de ar.</blockquote><figcaption><b>Cliente DG</b><span>Higienização detalhada</span></figcaption></figure>
+            <figure class="quote-card"><div class="quote-stars" aria-hidden="true">★★★★★</div><blockquote>Atendimento atencioso e explicado passo a passo. Deu para confiar no que estava sendo feito.</blockquote><figcaption><b>Cliente DG</b><span>Avaliação</span></figcaption></figure>
+            <figure class="quote-card"><div class="quote-stars" aria-hidden="true">★★★★★</div><blockquote>As rodas voltaram com outra cara. Raios e pneus muito bem cuidados.</blockquote><figcaption><b>Cliente DG</b><span>Rodas e pneus</span></figcaption></figure>
+            <figure class="quote-card"><div class="quote-stars" aria-hidden="true">★★★★★</div><blockquote>A lavagem técnica deixou a carroceria lisa e brilhando. Vale cada minuto de cuidado.</blockquote><figcaption><b>Cliente DG</b><span>Lavagem técnica</span></figcaption></figure>
+            <figure class="quote-card"><div class="quote-stars" aria-hidden="true">★★★★★</div><blockquote>Fiz a vitrificação e a água escorre como se a pintura tivesse acabado de sair da loja.</blockquote><figcaption><b>Cliente DG</b><span>Vitrificação da pintura</span></figcaption></figure>
+            <figure class="quote-card" aria-hidden="true"><div class="quote-stars" aria-hidden="true">★★★★★</div><blockquote>Entreguei o carro com a pintura apagada e voltou com um brilho que eu não via há anos.</blockquote><figcaption><b>Cliente DG</b><span>Polimento técnico</span></figcaption></figure>
+            <figure class="quote-card" aria-hidden="true"><div class="quote-stars" aria-hidden="true">★★★★★</div><blockquote>O interior ficou tão limpo que parecia carro novo. Notei a diferença até nas saídas de ar.</blockquote><figcaption><b>Cliente DG</b><span>Higienização detalhada</span></figcaption></figure>
+            <figure class="quote-card" aria-hidden="true"><div class="quote-stars" aria-hidden="true">★★★★★</div><blockquote>Atendimento atencioso e explicado passo a passo. Deu para confiar no que estava sendo feito.</blockquote><figcaption><b>Cliente DG</b><span>Avaliação</span></figcaption></figure>
+            <figure class="quote-card" aria-hidden="true"><div class="quote-stars" aria-hidden="true">★★★★★</div><blockquote>As rodas voltaram com outra cara. Raios e pneus muito bem cuidados.</blockquote><figcaption><b>Cliente DG</b><span>Rodas e pneus</span></figcaption></figure>
+            <figure class="quote-card" aria-hidden="true"><div class="quote-stars" aria-hidden="true">★★★★★</div><blockquote>A lavagem técnica deixou a carroceria lisa e brilhando. Vale cada minuto de cuidado.</blockquote><figcaption><b>Cliente DG</b><span>Lavagem técnica</span></figcaption></figure>
+            <figure class="quote-card" aria-hidden="true"><div class="quote-stars" aria-hidden="true">★★★★★</div><blockquote>Fiz a vitrificação e a água escorre como se a pintura tivesse acabado de sair da loja.</blockquote><figcaption><b>Cliente DG</b><span>Vitrificação da pintura</span></figcaption></figure>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <section class="closing" id="fechamento" aria-labelledby="closing-title">
+      <div class="container closing-inner">
+        <p class="eyebrow">DG ESTÉTICA AUTOMOTIVA</p>
+        <h2 id="closing-title">O próximo capítulo do seu carro<br><em>começa nos detalhes.</em></h2>
+        <div class="closing-actions">
+          <a class="button button-primary" href="tel:+5583999080287">Ligue para agendar</a>
+          <a class="button button-outline button-insta" href="https://ig.me/m/douglas_da__estetica" target="_blank" rel="noopener noreferrer"><svg class="ig-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>Chamar no Instagram</a>
+        </div>
+        <p class="closing-phone">(83) 99908-0287</p>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-main">
+      <div class="footer-brand"><img src="assets/dg-logo-original.png" width="1080" height="889" alt="Logo original DG Estética Automotiva" loading="lazy"><p>Precisão em cada detalhe.</p></div>
+      <div class="footer-column"><h3>Explore</h3><a href="#top">Início</a><a href="#marca">A DG</a><a href="#detalhes">Detalhes</a><a href="#servicos">Serviços</a><a href="#processo">Nosso cuidado</a></div>
+      <div class="footer-column"><h3>Contato</h3><a href="tel:+5583999080287">(83) 99908-0287</a><a class="wa-link" href="https://wa.me/5583999080287" target="_blank" rel="noopener noreferrer"><svg class="ig-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9l-5.05.9"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></svg>WhatsApp</a><a href="https://www.instagram.com/douglas_da__estetica/" target="_blank" rel="noopener noreferrer"><svg class="ig-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>Instagram @douglas_da__estetica</a><p>Entre em contato para agendar uma avaliação.</p></div>
+    </div>
+    <div class="container footer-bottom"><span>© <span id="year">2026</span> DG Estética Automotiva</span><a href="#top">Voltar ao início</a></div>
+  </footer>
+  <div class="mirror-transition" aria-hidden="true"></div>
+  <dialog class="service-dialog" aria-labelledby="dialog-title">
+    <button class="dialog-close" type="button" aria-label="Fechar detalhes"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="dialog-media"><img class="dialog-image" src="" alt=""><video class="dialog-video" controls playsinline muted preload="none" hidden></video></div>
+    <div class="dialog-copy"><p class="section-kicker">SERVIÇO DG</p><h2 id="dialog-title"></h2><p id="dialog-description" class="dialog-lead"></p><h3 class="dialog-sub" hidden>O que inclui</h3><ul class="dialog-list" hidden></ul><p class="dialog-result" hidden><b>Resultado</b><span></span></p><a class="dialog-source" href="" target="_blank" rel="noopener noreferrer" hidden><svg class="ig-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>Ver vídeo original no Instagram</a><div class="dialog-actions"><a class="button button-primary dialog-whats" href="https://wa.me/5583999080287" target="_blank" rel="noopener noreferrer"><svg class="ig-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9l-5.05.9"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></svg>Chamar no WhatsApp</a><a class="button button-outline dialog-insta" href="https://ig.me/m/douglas_da__estetica" target="_blank" rel="noopener noreferrer"><svg class="ig-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>Chamar no Instagram</a></div><p class="dialog-hint" role="status" hidden>Mensagem copiada. Cole na conversa do Instagram.</p></div>
+  </dialog>
+</div>
+
+<script src="scrollcraft.js"></script>
+<script src="assets/dotgrid.js"></script>
+<script src="assets/dg.js"></script>
+<script>
+/* Os cards da hero abrem a mesma janela de serviço do card equivalente na seção Serviços. */
+document.querySelectorAll('[data-service]').forEach(function (card) {
+  card.addEventListener('click', function () {
+    var alvo = Array.prototype.find.call(document.querySelectorAll('.service-open'), function (b) { return b.dataset.title === card.dataset.service; });
+    if (alvo) alvo.click();
+  });
+});
+</script>
+<script>ScrollCraft.mount(document.body);</script>
+</body>
+</html>
