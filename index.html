@@ -11,6 +11,9 @@
 <link rel="stylesheet" href="scrollcraft.css">
 <link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="dg.css">
+<link rel="stylesheet" href="escolha.css">
+<link rel="stylesheet" href="veiculo.css">
+<noscript><style>#escolha { display: none; } html:not(.strips-on) .dg .orb-art { background-image: var(--strip) !important; }</style></noscript>
 </head>
 <body>
 
@@ -22,7 +25,10 @@
     <img src="assets/emblem.webp" alt="" width="32" height="32">
     <span class="bar__name">DG Estética Automotiva</span>
   </a>
-  <a class="btn btn--sm" href="https://wa.me/5583999080287" target="_blank" rel="noopener">Falar no WhatsApp</a>
+  <div class="bar__actions">
+    <button class="bar__switch" type="button" data-esc-switch hidden>Trocar veículo</button>
+    <a class="btn btn--sm" href="https://wa.me/5583999080287" target="_blank" rel="noopener">Falar no WhatsApp</a>
+  </div>
 </header>
 
 <main id="top">
@@ -57,13 +63,44 @@
     </div>
   </section>
 
+  <!-- 3,5 · A ESCOLHA: logo depois do flash no farol, os dois veículos lado a lado e a pergunta.
+       Escolhido o veículo, a câmera se aproxima, o vídeo dele toca até o perfil com o brilho e a
+       página desce para os serviços (os mesmos lugares para os dois; o conteúdo da moto entra por veiculo.css). Lógica: escolha.js. -->
+  <section id="escolha" class="esc" data-state="idle" aria-labelledby="esc-title">
+    <div class="esc__cam" data-esc-cam>
+      <!-- tudo é vídeo: o herói em loop (carro e moto lado a lado), a ida de cada veículo e a volta (o mesmo vídeo ao contrário).
+           O poster só aparece se o vídeo do herói falhar ao carregar. -->
+      <video class="esc__hero" data-esc-hero data-src="assets/escolha/hero-loop.mp4" data-src-s="assets/escolha/hero-loop-s.mp4" muted loop playsinline preload="none" aria-label="Carro azul e moto esportiva azul lado a lado na garagem, com fumaça baixa" tabindex="-1"></video>
+      <video class="esc__vid" data-esc-vid="carro" data-src="assets/escolha/carro.mp4" data-src-s="assets/escolha/carro-s.mp4" muted playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+      <video class="esc__vid" data-esc-vid="carro-rev" data-src="assets/escolha/carro-rev.mp4" data-src-s="assets/escolha/carro-rev-s.mp4" muted playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+      <video class="esc__vid" data-esc-vid="moto" data-src="assets/escolha/moto.mp4" data-src-s="assets/escolha/moto-s.mp4" muted playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+      <video class="esc__vid" data-esc-vid="moto-rev" data-src="assets/escolha/moto-rev.mp4" data-src-s="assets/escolha/moto-rev-s.mp4" muted playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+      <button class="esc__pick esc__pick--moto" type="button" data-esc-pick="moto" tabindex="-1" aria-hidden="true"><span class="esc__tag">Minha moto</span></button>
+      <button class="esc__pick esc__pick--carro" type="button" data-esc-pick="carro" tabindex="-1" aria-hidden="true"><span class="esc__tag">Meu carro</span></button>
+    </div>
+    <div class="esc__veil" aria-hidden="true"></div>
+
+    <div class="esc__copy">
+      <p class="esc__kicker">Antes de entrar</p>
+      <h2 id="esc-title" class="esc__q">Qual deles é o <em>seu?</em></h2>
+      <p class="esc__hint">Escolha um e a câmera chega mais perto.</p>
+    </div>
+
+    <div class="esc__actions">
+      <button class="esc__btn" type="button" data-esc-pick="carro">Meu carro</button>
+      <button class="esc__btn" type="button" data-esc-pick="moto">Minha moto</button>
+      <button class="esc__link" type="button" data-esc-skip>Ver todos os serviços</button>
+    </div>
+
+    <button class="esc__link esc__skipnow" type="button" data-esc-skipnow>Acelerar ▸▸</button>
+    <button class="esc__link esc__again" type="button" data-esc-again>Voltar</button>
+    <p class="esc__status" role="status" aria-live="polite" data-esc-status></p>
+  </section>
+
   <!-- 4 · DESEJO E AÇÃO: pin, os cards sobem e formam a colagem de serviços -->
-  <section id="destaques" data-sc-act="pin" data-sc-span="3.6" data-sc-drift="#0b0b0c" aria-labelledby="fin-title">
-    <div data-sc-stage class="fin">
-      <picture>
-        <source media="(max-width: 860px)" srcset="assets/end-h2-m.webp">
-        <img class="fin__bg" src="assets/end-h2.webp" alt="Carro azul e moto esportiva azul lado a lado na garagem, com fumaça baixa" width="1920" height="1080">
-      </picture>
+  <section id="destaques" aria-labelledby="fin-title">
+    <div class="fin">
+      <video class="fin__bg" data-fin-video data-src="assets/escolha/hero-loop.mp4" data-src-mobile="assets/escolha/hero-loop-m.mp4" muted loop playsinline preload="none" aria-label="Carro azul e moto esportiva azul lado a lado na garagem, com fumaça baixa" tabindex="-1"></video>
       <div class="fin__veil" aria-hidden="true"></div>
 
       <p class="fin__big" aria-hidden="true">Detalhes</p>
@@ -92,6 +129,30 @@
           <button class="card__in" type="button" data-sc-tilt="6" data-service="Couro e plásticos" aria-haspopup="dialog">
             <img src="assets/card-interior.webp" alt="" width="1000" height="914">
             <span class="card__cap">Couro e plásticos</span>
+          </button>
+        </li>
+        <li class="card card--a for-moto">
+          <button class="card__in" type="button" data-sc-tilt="6" data-service="Limpeza de rodas e pneus" aria-haspopup="dialog">
+            <img src="assets/moto-servicos/destaques/rodas-pneus.webp" alt="Roda dianteira da moto sendo escovada, com espuma nos raios" width="1200" height="800" style="--op:31% 50%;--op-m:37% 50%" loading="lazy" decoding="async">
+            <span class="card__cap">Rodas e pneus</span>
+          </button>
+        </li>
+        <li class="card card--c for-moto">
+          <button class="card__in" type="button" data-sc-tilt="6" data-service="Lavagem técnica completa da moto" aria-haspopup="dialog">
+            <img src="assets/moto-servicos/destaques/lavagem-completa.webp" alt="Moto coberta de espuma recebendo enxágue com mangueira na oficina" width="1100" height="1000" style="--op:50% 50%" loading="lazy" decoding="async">
+            <span class="card__cap">Lavagem técnica completa</span>
+          </button>
+        </li>
+        <li class="card card--d for-moto">
+          <button class="card__in" type="button" data-sc-tilt="6" data-service="Polimento técnico da moto" aria-haspopup="dialog">
+            <img src="assets/moto-servicos/destaques/polimento-tecnico.webp" alt="Politriz com boina laranja polindo o tanque preto da moto" width="1200" height="800" style="--op:64% 50%" loading="lazy" decoding="async">
+            <span class="card__cap">Polimento técnico</span>
+          </button>
+        </li>
+        <li class="card card--b for-moto">
+          <button class="card__in" type="button" data-sc-tilt="6" data-service="Limpeza do banco e dos plásticos" aria-haspopup="dialog">
+            <img src="assets/moto-servicos/destaques/banco-plasticos.webp" alt="Banco da moto sendo limpo com um pano de microfibra laranja" width="1200" height="800" style="--op:50% 50%" loading="lazy" decoding="async">
+            <span class="card__cap">Banco e plásticos</span>
           </button>
         </li>
       </ul>
@@ -147,9 +208,9 @@
             </div>
           </div>
           <div class="ref-bento">
-            <a class="ref-cell" href="#servicos"><span class="ref-cell-text"><small>INTERIOR</small><b>Couro e conforto</b><em>Ver interior</em></span><span class="seq-tag" aria-hidden="true">LIMPANDO</span><video class="seq on" data-seq src="assets/detalhes-videos/interior-hilux.mp4" muted playsinline autoplay preload="metadata" aria-label="Limpeza do painel e do volante dentro da cabine"></video><video class="seq" data-seq src="assets/detalhes-videos/painel-porta.mp4" muted playsinline preload="metadata" aria-label="Resultado: painel da porta limpo e em acabamento impecável"></video></a>
-            <a class="ref-cell" href="#servicos"><span class="ref-cell-text"><small>MOTO</small><b>Lavagem com espuma</b><em>Ver serviços</em></span><video src="assets/detalhes-videos/moto-espuma.mp4" muted loop playsinline autoplay preload="metadata" aria-label="Moto sendo lavada com espuma na garagem"></video></a>
-            <a class="ref-cell" href="#servicos"><span class="ref-cell-text"><small>BANCOS</small><b>Limpeza profunda</b><em>Ver serviços</em></span><video src="assets/detalhes-videos/banco-limpeza.mp4" muted loop playsinline autoplay preload="metadata" aria-label="Banco de couro sendo limpo em profundidade"></video></a>
+            <a class="ref-cell" href="#servicos"><span class="ref-cell-text"><small>INTERIOR</small><b>Couro e conforto</b><em>Ver interior</em></span><span class="seq-tag" aria-hidden="true">LIMPANDO</span><video class="seq on" data-seq data-lazy-src="assets/detalhes-videos/interior-hilux.mp4" muted playsinline data-lazy-play preload="none" aria-label="Limpeza do painel e do volante dentro da cabine"></video><video class="seq" data-seq data-lazy-src="assets/detalhes-videos/painel-porta.mp4" muted playsinline preload="none" aria-label="Resultado: painel da porta limpo e em acabamento impecável"></video></a>
+            <a class="ref-cell" href="#servicos"><span class="ref-cell-text"><small>MOTO</small><b>Lavagem com espuma</b><em>Ver serviços</em></span><video data-lazy-src="assets/detalhes-videos/moto-espuma.mp4" muted loop playsinline data-lazy-play preload="none" aria-label="Moto sendo lavada com espuma na garagem"></video></a>
+            <a class="ref-cell" href="#servicos"><span class="ref-cell-text"><small>BANCOS</small><b>Limpeza profunda</b><em>Ver serviços</em></span><video data-lazy-src="assets/detalhes-videos/banco-limpeza.mp4" muted loop playsinline data-lazy-play preload="none" aria-label="Banco de couro sendo limpo em profundidade"></video></a>
           </div>
         </div>
       </div>
@@ -166,7 +227,7 @@
           </div>
           <div class="section-heading centered">
           <h2 id="services-title">Cuidado para <em>cada detalhe.</em></h2>
-          <p>Do primeiro contato com a carroceria aos últimos ajustes de acabamento: encontre o cuidado que seu carro precisa.</p>
+          <p>Do primeiro contato com a <span class="for-carro">carroceria</span><span class="for-moto">pintura</span> aos últimos ajustes de acabamento: encontre o cuidado que <span class="for-carro">seu carro</span><span class="for-moto">sua moto</span> precisa.</p>
           <p class="service-hint">Dê dois cliques (ou dois toques) em um card para ver o serviço.</p>
         </div>
 
@@ -217,6 +278,48 @@
             <button class="service-open orb-card" type="button" data-title="Rodas e pneus" data-image="assets/limpeza-frames/frames/rodas-pneus-10.png" data-video="assets/service-videos/demos/rodas-pneus.mp4" data-description="Limpeza dedicada às áreas que mais sofrem no uso diário." data-itens="Limpeza das rodas, inclusive dos raios|Limpeza dos pneus|Remoção de sujeira e resíduos acumulados" data-resultado="Rodas e pneus limpos, com visual renovado.">
               <span class="orb-stage" style="--ar:474/321"><span class="orb-ring"></span><svg class="orb-bridge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C45 34 50 0 100 0V100C50 100 45 66 0 66Z"/></svg><span class="orb-art" role="img" aria-label="Roda e pneu sujos que são escovados, enxaguados e ficam reluzentes, em dez etapas" style="--strip:url(assets/limpeza-frames/animados/rodas-pneus-strip.webp)"></span></span>
               <span class="orb-info"><span class="orb-tag">DETALHES</span><span class="orb-title">Rodas e<br>pneus</span><span class="orb-desc">Atenção até ao chão.</span><span class="orb-cta">CONHECER SERVIÇO <b aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M8 7h9v9"/></svg></b></span></span>
+            </button>
+          </article>
+          <article class="service-card for-moto">
+            <button class="service-open orb-card" type="button" data-title="Lavagem técnica completa da moto" data-image="assets/moto-servicos/animados/lavagem-completa.webp" data-description="Lavagem pensada para a moto inteira, não só para o que aparece: das rodas à relação, com cuidado em cada área e acabamento depois da secagem." data-itens="Pré-lavagem para soltar a sujeira|Aplicação de espuma|Limpeza das rodas|Limpeza externa do motor|Limpeza do banco e dos plásticos|Limpeza da relação|Enxágue e secagem|Acabamento final" data-resultado="Moto limpa por inteiro, seca e com acabamento final.">
+              <span class="orb-stage" style="--ar:512/285"><span class="orb-ring"></span><svg class="orb-bridge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C45 34 50 0 100 0V100C50 100 45 66 0 66Z"/></svg><span class="orb-art" role="img" aria-label="Moto suja que é pré-lavada, recebe espuma, tem rodas, motor, banco e relação limpos, é enxaguada e seca, em dez etapas" style="--strip:url(assets/moto-servicos/animados/lavagem-completa-strip.webp)"></span></span>
+              <span class="orb-info"><span class="orb-tag">LIMPEZA</span><span class="orb-title">Lavagem técnica<br>completa</span><span class="orb-desc">Da roda à relação.</span><span class="orb-cta">CONHECER SERVIÇO <b aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M8 7h9v9"/></svg></b></span></span>
+            </button>
+          </article>
+          <article class="service-card for-moto">
+            <button class="service-open orb-card" type="button" data-title="Polimento técnico da moto" data-image="assets/moto-servicos/animados/polimento-tecnico.webp" data-description="Correção de marcas superficiais nas peças pintadas, como o tanque, feita depois de inspecionar a pintura e preparar a superfície." data-itens="Inspeção das marcas|Lubrificação e descontaminação da superfície|Secagem da superfície|Aplicação do composto|Polimento e continuação da correção|Remoção dos resíduos|Inspeção final do acabamento" data-resultado="Pintura com as marcas superficiais corrigidas e o acabamento inspecionado.">
+              <span class="orb-stage" style="--ar:500/304"><span class="orb-ring"></span><svg class="orb-bridge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C45 34 50 0 100 0V100C50 100 45 66 0 66Z"/></svg><span class="orb-art" role="img" aria-label="Tanque da moto com marcas que é inspecionado, descontaminado, recebe composto e polimento e termina com brilho, em dez etapas" style="--strip:url(assets/moto-servicos/animados/polimento-tecnico-strip.webp)"></span></span>
+              <span class="orb-info"><span class="orb-tag">PINTURA</span><span class="orb-title">Polimento<br>técnico</span><span class="orb-desc">Correção vista de perto.</span><span class="orb-cta">CONHECER SERVIÇO <b aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M8 7h9v9"/></svg></b></span></span>
+            </button>
+          </article>
+          <article class="service-card for-moto">
+            <button class="service-open orb-card" type="button" data-title="Vitrificação da pintura da moto" data-image="assets/moto-servicos/animados/vitrificacao-pintura.webp" data-description="Uma camada de proteção para a pintura, aplicada sobre a superfície já corrigida e preparada, com cura conforme o produto usado." data-itens="Preparação da superfície|Limpeza final|Produto no aplicador|Aplicação horizontal e cruzada|Nivelamento|Cura conforme o produto|Gotas após a cura, o efeito hidrofóbico" data-resultado="Pintura protegida e com efeito hidrofóbico depois da cura.">
+              <span class="orb-stage" style="--ar:502/311"><span class="orb-ring"></span><svg class="orb-bridge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C45 34 50 0 100 0V100C50 100 45 66 0 66Z"/></svg><span class="orb-art" role="img" aria-label="Tanque da moto que é preparado, recebe a vitrificação em duas direções, cura e passa a formar gotas na superfície, em dez etapas" style="--strip:url(assets/moto-servicos/animados/vitrificacao-pintura-strip.webp)"></span></span>
+              <span class="orb-info"><span class="orb-tag">PROTEÇÃO</span><span class="orb-title">Vitrificação<br>da pintura</span><span class="orb-desc">Proteção sobre a pintura corrigida.</span><span class="orb-cta">CONHECER SERVIÇO <b aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M8 7h9v9"/></svg></b></span></span>
+            </button>
+          </article>
+          <article class="service-card for-moto">
+            <button class="service-open orb-card" type="button" data-title="Limpeza de rodas e pneus" data-image="assets/moto-servicos/animados/rodas-pneus.webp" data-description="Detalhamento das rodas e limpeza da borracha, com enxágue e secagem." data-itens="Pré-enxágue suave|Aplicação do limpador|Escovação do pneu|Limpeza dos raios|Limpeza do cubo|Enxágue|Secagem da roda|Inspeção dos detalhes" data-resultado="Roda e pneu limpos.">
+              <span class="orb-stage" style="--ar:382/300"><span class="orb-ring"></span><svg class="orb-bridge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C45 34 50 0 100 0V100C50 100 45 66 0 66Z"/></svg><span class="orb-art" role="img" aria-label="Roda e pneu sujos que recebem enxágue, limpador e escova, têm raios e cubo limpos e terminam secos e inspecionados, em dez etapas" style="--strip:url(assets/moto-servicos/animados/rodas-pneus-strip.webp)"></span></span>
+              <span class="orb-info"><span class="orb-tag">DETALHES</span><span class="orb-title">Limpeza de rodas<br>e pneus</span><span class="orb-desc">Da borracha aos raios.</span><span class="orb-cta">CONHECER SERVIÇO <b aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M8 7h9v9"/></svg></b></span></span>
+            </button>
+          </article>
+          <article class="service-card for-moto">
+            <button class="service-open orb-card" type="button" data-title="Limpeza do banco e dos plásticos" data-image="assets/moto-servicos/animados/banco-plasticos.webp" data-description="Limpeza do banco e dos acabamentos plásticos, preservando a textura fosca." data-itens="Remoção da poeira|Limpador na microfibra|Limpeza do banco|Detalhamento das costuras|Limpeza dos plásticos|Remoção dos resíduos|Secagem|Inspeção do acabamento" data-resultado="Banco e plásticos limpos.">
+              <span class="orb-stage" style="--ar:448/301"><span class="orb-ring"></span><svg class="orb-bridge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C45 34 50 0 100 0V100C50 100 45 66 0 66Z"/></svg><span class="orb-art" role="img" aria-label="Banco e plásticos sujos que perdem a poeira, são limpos com microfibra, costuras detalhadas, secos e inspecionados, em dez etapas" style="--strip:url(assets/moto-servicos/animados/banco-plasticos-strip.webp)"></span></span>
+              <span class="orb-info"><span class="orb-tag">ACABAMENTO</span><span class="orb-title">Limpeza do banco<br>e dos plásticos</span><span class="orb-desc">Textura fosca preservada.</span><span class="orb-cta">CONHECER SERVIÇO <b aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M8 7h9v9"/></svg></b></span></span>
+            </button>
+          </article>
+          <article class="service-card for-moto">
+            <button class="service-open orb-card" type="button" data-title="Limpeza externa do motor" data-image="assets/moto-servicos/animados/motor-externo.webp" data-description="Detalhamento das superfícies externas do motor e secagem dos pontos de acesso." data-itens="Remoção da poeira|Limpador na escova|Limpeza das aletas|Limpeza das carcaças|Detalhamento das junções|Remoção dos resíduos|Secagem com microfibra|Secagem dos detalhes" data-resultado="Motor limpo externamente.">
+              <span class="orb-stage" style="--ar:387/291"><span class="orb-ring"></span><svg class="orb-bridge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C45 34 50 0 100 0V100C50 100 45 66 0 66Z"/></svg><span class="orb-art" role="img" aria-label="Motor com sujeira externa que é escovado nas aletas, carcaças e junções e termina seco com microfibra, em dez etapas" style="--strip:url(assets/moto-servicos/animados/motor-externo-strip.webp)"></span></span>
+              <span class="orb-info"><span class="orb-tag">MOTOR</span><span class="orb-title">Limpeza externa<br>do motor</span><span class="orb-desc">Superfícies externas, secas.</span><span class="orb-cta">CONHECER SERVIÇO <b aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M8 7h9v9"/></svg></b></span></span>
+            </button>
+          </article>
+          <article class="service-card for-moto">
+            <button class="service-open orb-card" type="button" data-title="Limpeza e lubrificação da relação" data-image="assets/moto-servicos/animados/limpeza-relacao.webp" data-description="Limpeza da corrente e da coroa, secagem e aplicação localizada de lubrificante." data-itens="Preparação da limpeza|Limpador na escova|Escovação da corrente|Limpeza da coroa|Remoção da sujeira|Secagem da corrente|Lubrificação localizada|Remoção do excesso" data-resultado="Relação limpa e lubrificada.">
+              <span class="orb-stage" style="--ar:399/318"><span class="orb-ring"></span><svg class="orb-bridge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C45 34 50 0 100 0V100C50 100 45 66 0 66Z"/></svg><span class="orb-art" role="img" aria-label="Corrente e coroa sujas que são escovadas, secas, recebem lubrificante localizado e terminam sem excesso, em dez etapas" style="--strip:url(assets/moto-servicos/animados/limpeza-relacao-strip.webp)"></span></span>
+              <span class="orb-info"><span class="orb-tag">TRANSMISSÃO</span><span class="orb-title">Limpeza e lubrificação<br>da relação</span><span class="orb-desc">Corrente e coroa, limpas.</span><span class="orb-cta">CONHECER SERVIÇO <b aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M8 7h9v9"/></svg></b></span></span>
             </button>
           </article>
         </div>
@@ -272,7 +375,7 @@
   </main>
   <footer class="site-footer">
     <div class="container footer-main">
-      <div class="footer-brand"><img src="assets/dg-logo-original.png" width="1080" height="889" alt="Logo original DG Estética Automotiva" loading="lazy"><p>Precisão em cada detalhe.</p></div>
+      <div class="footer-brand"><img src="assets/dg-logo-original.webp" width="1080" height="889" alt="Logo original DG Estética Automotiva" loading="lazy"><p>Precisão em cada detalhe.</p></div>
       <div class="footer-column"><h3>Explore</h3><a href="#top">Início</a><a href="#marca">A DG</a><a href="#detalhes">Detalhes</a><a href="#servicos">Serviços</a><a href="#processo">Nosso cuidado</a></div>
       <div class="footer-column"><h3>Contato</h3><a href="tel:+5583999080287">(83) 99908-0287</a><a class="wa-link" href="https://wa.me/5583999080287" target="_blank" rel="noopener noreferrer"><svg class="ig-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9l-5.05.9"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></svg>WhatsApp</a><a href="https://www.instagram.com/douglas_da__estetica/" target="_blank" rel="noopener noreferrer"><svg class="ig-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>Instagram @douglas_da__estetica</a><p>Entre em contato para agendar uma avaliação.</p></div>
     </div>
@@ -299,5 +402,7 @@ document.querySelectorAll('[data-service]').forEach(function (card) {
 });
 </script>
 <script>ScrollCraft.mount(document.body);</script>
+<script src="carga.js"></script>
+<script src="escolha.js"></script>
 </body>
 </html>

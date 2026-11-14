@@ -1,0 +1,67 @@
+/* ============================================================================
+   CONTEÚDO POR VEÍCULO
+   ----------------------------------------------------------------------------
+   Quem escolhe na seção #escolha põe body[data-veiculo="carro|moto"] (escolha.js).
+   Os MESMOS lugares da página (os cards que sobem e a grade de serviços) trocam
+   de conteúdo; não existe seção separada para a moto.
+
+   - .for-moto: só aparece com a moto escolhida.
+   - .for-carro: só aparece com a moto NÃO escolhida (some quando é moto).
+   - os cards e os serviços de carro (sem classe) somem quando a moto é escolhida.
+   Para somar um serviço da moto: copie um <li class="card ... for-moto"> (colagem)
+   e um <article class="service-card for-moto"> (grade) e troque textos e arquivos.
+   ========================================================================== */
+
+body:not([data-veiculo="moto"]) .for-moto { display: none !important; }
+body[data-veiculo="moto"] .for-carro { display: none !important; }
+body[data-veiculo="moto"] .fin__cards > .card:not(.for-moto),
+body[data-veiculo="moto"] .service-grid > .service-card:not(.for-moto) { display: none !important; }
+
+/* ---------- #destaques: uma tela só. Os cards sobem no tempo, conduzidos por escolha.js (--sc-p de 0 a 1), sem rolagem.
+   Sem JS, --sc-p vale 1 (o padrão do CSS) e tudo aparece montado. ---------- */
+#destaques { position: relative; }
+#destaques .fin { position: relative; height: 100vh; height: 100svh; }
+
+/* ---------- carga sob demanda: as faixas de animação dos serviços (~5 MB) só baixam perto da seção (carga.js) ---------- */
+html:not(.strips-on) .dg .orb-art { background-image: none !important; }
+
+/* a grade de serviços tem 2 colunas: com 7 serviços da moto (número ímpar), o último fica centralizado (tela larga) */
+@media (min-width: 901px) {
+  body[data-veiculo="moto"] .service-grid > .service-card.for-moto:last-child {
+    grid-column: 1 / -1; justify-self: center; width: calc(50% - 14px);
+  }
+}
+
+/* Os cards que sobem da moto usam o mesmo molde dos de carro (.card__in com uma foto cobrindo o card);
+   a foto de destaque de cada serviço fica em assets/moto-servicos/destaques/. O enquadramento de cada foto
+   vem das variáveis do próprio <img>: --op (tela larga) e --op-m (celular, onde o card é mais estreito). */
+.card.for-moto .card__in img { object-position: var(--op, 50% 50%); }
+@media (max-width: 860px) {
+  .card.for-moto .card__in img { object-position: var(--op-m, var(--op, 50% 50%)); }
+}
+/* a moto da lavagem completa aparece maior: o card dela é um pouco mais largo e alto (só na versão da moto, tela larga);
+   a proporção continua 1,10 (a da foto recortada) e ele segue entre o card do banco e o do polimento */
+@media (min-width: 861px) {
+  .fin__cards > .card--c.for-moto { left: 46vw; top: 59vh; width: 20.5vw; height: 33vh; }
+}
+
+/* ---------- barra: "Trocar veículo" (só depois de escolher) ---------- */
+.bar__actions { display: flex; align-items: center; gap: 0.6rem; }
+.bar__switch {
+  appearance: none; cursor: pointer; white-space: nowrap;
+  padding: 0.62rem 0.95rem; border-radius: var(--sc-r-pill, 999px);
+  background: color-mix(in oklab, var(--sc-canvas, #0b0b0c) 70%, transparent);
+  border: 1px solid color-mix(in oklab, var(--sc-accent, #ff6a00) 70%, transparent);
+  color: var(--sc-ink, #f3f1ee);
+  font: 800 var(--sc-t-sm, 0.9rem)/1 var(--sc-font-display, system-ui);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  transition: background-color var(--sc-d-fast, 160ms) ease, color var(--sc-d-fast, 160ms) ease;
+}
+.bar__switch[hidden] { display: none; }
+.bar__switch:focus-visible { outline: 2px solid var(--sc-ink, #f3f1ee); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .bar__switch:hover { background: var(--sc-accent, #ff6a00); color: var(--sc-accent-ink, #0b0b0c); }
+}
+@media (max-width: 860px) {
+  .bar__switch { padding: 0.55rem 0.75rem; font-size: var(--sc-t-xs, 0.78rem); }
+}

@@ -43,7 +43,15 @@ const serviceMessages = {
   'Polimento técnico': 'Olá, DG! Quero agendar uma avaliação para o Polimento técnico da pintura do meu carro. Quais os valores e horários?',
   'Vitrificação da pintura': 'Olá, DG! Tenho interesse na Vitrificação da pintura. Podem me explicar como é o processo e passar o valor?',
   'Couro e plásticos': 'Olá, DG! Quero saber sobre o cuidado de Couro e plásticos do interior. Podem me passar o valor e os horários?',
-  'Rodas e pneus': 'Olá, DG! Tenho interesse na limpeza de Rodas e pneus. Qual o valor e quando posso levar o carro?'
+  'Rodas e pneus': 'Olá, DG! Tenho interesse na limpeza de Rodas e pneus. Qual o valor e quando posso levar o carro?',
+  // serviços para moto (cards que sobem e grade de serviços): o título leva "da moto" para não colidir com os de carro
+  'Lavagem técnica completa da moto': 'Olá, DG! Tenho uma moto e quero saber sobre a Lavagem técnica completa. Podem me passar o valor e os horários disponíveis?',
+  'Polimento técnico da moto': 'Olá, DG! Tenho uma moto e quero saber sobre o Polimento técnico da pintura. Podem avaliar e me passar o valor?',
+  'Vitrificação da pintura da moto': 'Olá, DG! Tenho uma moto e tenho interesse na Vitrificação da pintura. Podem me explicar como é o processo e passar o valor?',
+  'Limpeza de rodas e pneus': 'Olá, DG! Tenho uma moto e quero saber sobre a Limpeza de rodas e pneus. Podem me passar o valor e os horários disponíveis?',
+  'Limpeza do banco e dos plásticos': 'Olá, DG! Tenho uma moto e quero saber sobre a Limpeza do banco e dos plásticos. Podem me passar o valor e os horários disponíveis?',
+  'Limpeza externa do motor': 'Olá, DG! Tenho uma moto e quero saber sobre a Limpeza externa do motor. Podem me passar o valor e os horários disponíveis?',
+  'Limpeza e lubrificação da relação': 'Olá, DG! Tenho uma moto e quero saber sobre a Limpeza e lubrificação da relação. Podem me passar o valor e os horários disponíveis?'
 };
 let currentMessage = '';
 const messageFor = title => serviceMessages[title] || `Olá, DG! Vim pelo site e tenho interesse em ${title}. Podem me passar valores e horários disponíveis?`;

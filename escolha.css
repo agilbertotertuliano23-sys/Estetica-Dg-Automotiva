@@ -1,0 +1,176 @@
+/* ============================================================================
+   A ESCOLHA: depois do flash no farol, os dois veículos lado a lado e uma
+   pergunta no alto. Escolhido o veículo, a câmera se aproxima (zoom exato na
+   área que o primeiro quadro do vídeo cobre), o vídeo dissolve por cima e toca
+   até o perfil lateral com o brilho. Só transform e opacity.
+   Lógica em escolha.js. Estados em [data-state]: idle, approach, playing, hold, done.
+   ========================================================================== */
+
+#escolha[hidden] { display: none !important; }
+
+.esc {
+  --cw: max(100vw, 177.7778vh);   /* largura da câmera: 16:9 que cobre o palco */
+  position: relative; height: 100vh; height: 100svh; overflow: hidden;
+  background: var(--sc-canvas, #0b0b0c); color: var(--sc-ink, #f3f1ee);
+  isolation: isolate;
+}
+
+/* ---------- a câmera: 16:9 centrada no palco, por posição absoluta (não depende do grid) ---------- */
+.esc__cam {
+  position: absolute; z-index: 1;
+  width: var(--cw); aspect-ratio: 16 / 9;
+  left: calc(50% - var(--cw) / 2); top: 50%; margin-top: calc(var(--cw) * -9 / 32);
+  transform-origin: 0 0; will-change: transform;   /* o zoom é animado por escolha.js (Web Animations) */
+}
+/* telas de proporção menor que 1,6: a câmera cabe na largura (o vídeo inteiro aparece, sem cortar as pontas do veículo) */
+@media (max-aspect-ratio: 8/5) {
+  .esc { --cw: 100vw; }
+}
+
+/* o herói (vídeo em loop) preenche a câmera; os vídeos de cada veículo (ida e volta) ocupam exatamente
+   a fatia do herói que o 1º quadro deles cobre (os mesmos números de RECT em escolha.js) */
+.esc__hero, .esc__vid {
+  position: absolute; display: block; object-fit: fill; pointer-events: none;
+  user-select: none; -webkit-user-drag: none;
+}
+.esc__hero { inset: 0; width: 100%; height: 100%; transition: opacity 0.4s ease; }
+.esc__hero.is-off { opacity: 0; }
+.esc__vid { opacity: 0; transition: opacity 0.4s ease; }
+.esc__vid.is-on { opacity: 1; }
+.esc__vid.is-snap { transition: none; }            /* troca no mesmo quadro (ida para volta): sem fade */
+.esc__vid[data-esc-vid^="carro"] { left: 35.9375%; top: 32.4074%; width: 57.2917%; height: 57.3148%; }
+.esc__vid[data-esc-vid^="moto"]  { left: 0; top: 37.0370%; width: 55.5556%; height: 55.5556%; }
+
+/* ---------- zonas clicáveis sobre cada veículo ---------- */
+.esc__pick {
+  position: absolute; z-index: 2; margin: 0; padding: 0; cursor: pointer;
+  background: transparent; border: 0; border-radius: 18px; color: inherit; font: inherit;
+  -webkit-tap-highlight-color: transparent;
+  transition: box-shadow 0.35s var(--sc-ease-out, ease), background-color 0.35s ease, opacity 0.35s ease;
+}
+.esc__pick--moto  { left: 15%;   top: 41%; width: 20.5%; height: 50.5%; }
+.esc__pick--carro { left: 42.5%; top: 39.5%; width: 40.5%; height: 50.5%; }
+.esc__tag {
+  position: absolute; left: 50%; top: -0.4rem; transform: translate(-50%, -100%);
+  display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap;
+  padding: 0.5rem 0.9rem; border-radius: var(--sc-r-pill, 999px);
+  background: color-mix(in oklab, var(--sc-canvas, #0b0b0c) 72%, transparent);
+  border: 1px solid color-mix(in oklab, var(--sc-accent, #ff6a00) 70%, transparent);
+  font: 800 var(--sc-t-sm, 0.9rem)/1 var(--sc-font-display, system-ui); letter-spacing: 0.01em;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.esc__tag::before {
+  content: ""; width: 0.5rem; height: 0.5rem; border-radius: 50%;
+  background: var(--sc-accent, #ff6a00);
+  animation: esc-pulse 2.2s ease-out infinite;
+}
+@keyframes esc-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--sc-accent, #ff6a00) 60%, transparent); }
+  70%, 100% { box-shadow: 0 0 0 0.7rem transparent; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .esc[data-state="idle"] .esc__pick:hover {
+    background: color-mix(in oklab, var(--sc-accent, #ff6a00) 9%, transparent);
+    box-shadow: 0 0 0 2px var(--sc-accent, #ff6a00), 0 0 60px color-mix(in oklab, var(--sc-accent, #ff6a00) 38%, transparent);
+  }
+  .esc[data-state="idle"] .esc__cam:has(.esc__pick:hover) .esc__pick:not(:hover) { opacity: 0.55; }
+}
+
+/* ---------- véus: leitura do texto sem esconder os veículos ---------- */
+.esc__veil { position: absolute; inset: 0; z-index: 3; pointer-events: none; transition: opacity 0.5s ease; }
+.esc__veil::before, .esc__veil::after { content: ""; position: absolute; left: 0; right: 0; }
+.esc__veil::before {
+  top: 0; height: 46%;
+  background: linear-gradient(to bottom, color-mix(in oklab, var(--sc-canvas, #0b0b0c) 88%, transparent), color-mix(in oklab, var(--sc-canvas, #0b0b0c) 45%, transparent) 55%, transparent);
+}
+.esc__veil::after {
+  bottom: 0; height: 34%;
+  background: linear-gradient(to top, color-mix(in oklab, var(--sc-canvas, #0b0b0c) 86%, transparent), transparent);
+}
+
+/* ---------- a pergunta (em cima dos veículos) ---------- */
+.esc__copy {
+  position: absolute; z-index: 4; left: 0; right: 0; top: clamp(4.4rem, 11vh, 7rem);
+  padding: 0 var(--sc-gutter, 1.5rem); text-align: center; pointer-events: none;
+  transition: opacity 0.45s ease, transform 0.6s var(--sc-ease-out, ease);
+}
+.esc__kicker {
+  margin: 0 0 0.7rem; font: 800 var(--sc-t-xs, 0.78rem)/1 var(--sc-font-display, system-ui);
+  letter-spacing: 0.28em; text-transform: uppercase; color: var(--sc-accent, #ff6a00);
+}
+.esc__q {
+  margin: 0; font: 800 var(--sc-t-3xl, 3.4rem)/1 var(--sc-font-display, system-ui);
+  letter-spacing: var(--sc-track-tight, -0.035em); text-wrap: balance;
+}
+.esc__q em { font-style: italic; color: var(--sc-accent, #ff6a00); }
+.esc__hint { margin: 0.9rem 0 0; font-size: var(--sc-t-base, 1rem); color: var(--sc-ink-soft, #bab3ab); }
+
+/* ---------- ações (os mesmos dois caminhos em botões: teclado, toque e leitor de tela) ---------- */
+.esc__actions {
+  position: absolute; z-index: 4; left: 0; right: 0; bottom: clamp(1.4rem, 6vh, 3.2rem);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem;
+  padding: 0 var(--sc-gutter, 1.5rem);
+  transition: opacity 0.45s ease, transform 0.6s var(--sc-ease-out, ease);
+}
+.esc__btn {
+  appearance: none; cursor: pointer; border: 0; display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.95rem 1.6rem; border-radius: var(--sc-r-sm, 6px); min-height: 3rem;
+  background: var(--sc-accent, #ff6a00); color: var(--sc-accent-ink, #0b0b0c);
+  font: 800 var(--sc-t-base, 1rem)/1 var(--sc-font-display, system-ui); letter-spacing: 0.01em;
+  transition: transform var(--sc-d-fast, 160ms) var(--sc-ease-out, ease), background-color var(--sc-d-fast, 160ms) ease;
+}
+.esc__btn:active { transform: translateY(1px); }
+.esc__btn:focus-visible, .esc__link:focus-visible, .esc__pick:focus-visible { outline: 2px solid var(--sc-ink, #f3f1ee); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .esc__btn:hover { background: color-mix(in oklab, var(--sc-accent, #ff6a00) 88%, white); }
+}
+.esc__link {
+  appearance: none; background: none; border: 0; cursor: pointer; padding: 0.7rem 0.4rem;
+  font: 700 var(--sc-t-sm, 0.9rem)/1 var(--sc-font-display, system-ui); color: var(--sc-ink-soft, #bab3ab);
+  text-decoration: underline; text-underline-offset: 0.3em; text-decoration-color: color-mix(in oklab, currentColor 40%, transparent);
+}
+@media (hover: hover) and (pointer: fine) { .esc__link:hover { color: var(--sc-ink, #f3f1ee); } }
+
+/* "Acelerar" durante a transição (ida e volta); "Voltar" depois de escolher.
+   visibility:hidden tira os botões invisíveis da ordem de Tab. */
+.esc__again, .esc__skipnow {
+  position: absolute; z-index: 5; right: var(--sc-gutter, 1.5rem); bottom: clamp(1.4rem, 6vh, 3.2rem);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.45s ease, visibility 0s linear 0.45s;
+}
+.esc[data-state="done"] .esc__again,
+.esc[data-state="approach"] .esc__skipnow,
+.esc[data-state="playing"] .esc__skipnow,
+.esc[data-state="hold"] .esc__skipnow,
+.esc[data-state="rewind"] .esc__skipnow {
+  opacity: 1; visibility: visible; pointer-events: auto; transition: opacity 0.45s ease 0.4s, visibility 0s;
+}
+
+.esc__status {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ---------- estados ---------- */
+.esc:not([data-state="idle"]) .esc__copy,
+.esc:not([data-state="idle"]) .esc__actions,
+.esc:not([data-state="idle"]) .esc__pick {
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.45s ease, transform 0.6s var(--sc-ease-out, ease), visibility 0s linear 0.6s;
+}
+.esc:not([data-state="idle"]) .esc__copy { transform: translateY(-0.6rem); }
+.esc:not([data-state="idle"]) .esc__actions { transform: translateY(0.6rem); }
+.esc:not([data-state="idle"]) .esc__veil { opacity: 0; }
+
+/* ---------- telas mais altas que largas: veículos pequenos; texto e botões ocupam as faixas ---------- */
+@media (max-aspect-ratio: 8/5) {
+  .esc__copy { top: clamp(4.6rem, 13vh, 6rem); }
+  .esc__q { font-size: clamp(2.3rem, 11vw, 3.4rem); }
+  .esc__hint { font-size: var(--sc-t-sm, 0.9rem); }
+  .esc__tag { font-size: var(--sc-t-xs, 0.78rem); padding: 0.42rem 0.7rem; }
+  .esc__btn { flex: 1 1 9.5rem; max-width: 14rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .esc__cam { transition: none; }
+  .esc__tag::before { animation: none; }
+}
