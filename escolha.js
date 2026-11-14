@@ -241,14 +241,24 @@
   var primed = false;
   // os vídeos não têm src no HTML (para não baixar nada na abertura): o endereço vem de data-src,
   // ou de data-src-s (720p) em telas pequenas
-  function load(v) {
+  // O vídeo é baixado INTEIRO para a memória (blob) antes de receber o src: depois disso ele toca, volta e
+  // acelera sem depender da rede, então não trava no meio. `done` roda quando o src já foi aplicado.
+  function load(v, done) {
     if (!v) return;
-    if (!v.src) {
-      var u = (smallScreen && v.getAttribute('data-src-s')) || v.getAttribute('data-src');
-      if (!u) return;
-      v.src = u;
-    }
-    if (v.preload !== 'auto') { v.preload = 'auto'; try { v.load(); } catch (e) {} }
+    if (v.src) { if (done) done(); return; }
+    if (done) (v.__cbs = v.__cbs || []).push(done);
+    if (v.__loading) return;
+    var u = (smallScreen && v.getAttribute('data-src-s')) || v.getAttribute('data-src');
+    if (!u) return;
+    v.__loading = true;
+    var ready = function (src) {
+      v.src = src; v.preload = 'auto'; v.__loading = false;
+      (v.__cbs || []).splice(0).forEach(function (f) { try { f(); } catch (e) {} });
+    };
+    if (typeof fetch === 'function' && window.URL && URL.createObjectURL) {
+      fetch(u).then(function (r) { if (!r.ok) throw new Error(r.status); return r.blob(); })
+        .then(function (b) { ready(URL.createObjectURL(b)); }, function () { ready(u); });
+    } else { ready(u); }
   }
   function prime() {
     if (primed || noVideo) return;
@@ -441,16 +451,18 @@
 
   // o herói só é baixado quando a seção está a uma tela de distância e só roda enquanto está perto da tela
   if ('IntersectionObserver' in window) {
+    var heroNear = false;
+    var heroLive = function () { return state === 'idle' || state === 'approach' || state === 'rewind' || (state === 'done' && !chosen); };
     new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) load(hero);
-        var heroLive = state === 'idle' || state === 'approach' || state === 'rewind' || (state === 'done' && !chosen);
-        if (!heroLive || hero.classList.contains('is-off')) return;
+        heroNear = e.isIntersecting;
+        if (e.isIntersecting) load(hero, function () { if (heroNear && heroLive() && !hero.classList.contains('is-off')) safePlay(hero); });
+        if (!heroLive() || hero.classList.contains('is-off')) return;
         if (e.isIntersecting) safePlay(hero); else safePause(hero);
       });
     }, { rootMargin: '100% 0px' }).observe(root);
   } else {
-    load(hero); safePlay(hero);
+    load(hero, function () { safePlay(hero); });
   }
 
   // liga a trava quando a escolha ocupa a tela, só na descida; solta se sair sem escolher

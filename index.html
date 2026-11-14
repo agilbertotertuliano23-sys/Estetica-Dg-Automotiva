@@ -8,6 +8,8 @@
 <meta name="theme-color" content="#0b0b0c">
 <link rel="icon" href="assets/emblem.webp" type="image/webp">
 <link rel="preload" href="assets/fonts/Exo2-normal-800.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/film-lite.mp4" as="fetch" crossorigin media="(min-width: 861px)">
+<link rel="preload" href="assets/film-m-lite.mp4" as="fetch" crossorigin media="(max-width: 860px)">
 <link rel="stylesheet" href="scrollcraft.css">
 <link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="dg.css">
@@ -45,6 +47,7 @@
         <img class="sc-stage__poster" src="assets/poster-h1.webp" alt="" width="1920" height="1080">
       </picture>
       <video data-sc-scrub data-sc-src="assets/film.mp4" data-sc-src-mobile="assets/film-m.mp4"
+             data-sc-src-lite="assets/film-lite.mp4" data-sc-src-mobile-lite="assets/film-m-lite.mp4" data-sc-lerp="0.25"
              muted playsinline aria-hidden="true"></video>
       <div class="film-veil film-veil--l" aria-hidden="true"></div>
       <div class="film-veil film-veil--r" aria-hidden="true"></div>

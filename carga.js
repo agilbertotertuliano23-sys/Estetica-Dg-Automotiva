@@ -61,6 +61,20 @@
       });
     }, { rootMargin: '60% 0px' });
     videos.forEach(function (v) { seen.observe(v); });
+
+    // 3) vídeos de demonstração dos serviços (abrem no modal ao clicar no card, 1,7 a 3,2 MB): começam a baixar
+    //    quando o mouse, o dedo ou o foco chegam no card, então o modal abre com o vídeo já em cache
+    var warmed = {};
+    var warm = function (e) {
+      var b = e.target && e.target.closest && e.target.closest('.service-open[data-video]');
+      var u = b && b.getAttribute('data-video');
+      if (!u || warmed[u] || lite) return;
+      warmed[u] = 1;
+      try { fetch(u).then(function (r) { return r.blob(); }).catch(function () {}); } catch (err2) {}
+    };
+    ['pointerover', 'touchstart', 'focusin'].forEach(function (ev) {
+      document.addEventListener(ev, warm, { passive: true, capture: true });
+    });
   } catch (err) {
     if (window.console) console.error('[carga] liberando tudo:', err);
     releaseAll();

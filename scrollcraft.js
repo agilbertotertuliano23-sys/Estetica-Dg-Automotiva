@@ -587,9 +587,29 @@
                 V.el.currentSrc || V.el.src;
       if (isMobile() && V.el.getAttribute('data-sc-src-mobile')) src = V.el.getAttribute('data-sc-src-mobile');
       if (!src) return;
+      // Two stages. A small preview (data-sc-src-lite / data-sc-src-mobile-lite, ~1 MB) is fetched first
+      // and drives the scrub within a moment; the full-quality file is fetched right after and takes its
+      // place without a visible cut (upgradeClip). Without the attributes this is the original one-stage
+      // load. With data-saver on, only the preview is used.
+      var lite = isMobile() ? V.el.getAttribute('data-sc-src-mobile-lite') : V.el.getAttribute('data-sc-src-lite');
+      var saver = !!(navigator.connection && navigator.connection.saveData);
       V.loading = true;
-      fetch(src).then(function (r) { if (!r.ok) throw new Error(r.status); return r.blob(); })
-        .then(function (blob) {
+      var getBlob = function (u) {
+        return fetch(u).then(function (r) { if (!r.ok) throw new Error(r.status); return r.blob(); });
+      };
+      var full = function () { return getBlob(src).then(function (b) { return { blob: b, lite: false }; }); };
+      var first = lite
+        ? getBlob(lite).then(function (b) { return { blob: b, lite: true }; }, full)
+        : full();
+      first.then(function (got) {
+        attachBlob(V, got.blob);
+        if (got.lite && !saver) getBlob(src).then(function (fb) { upgradeClip(V, fb); }, function () {});
+      }).catch(function () { V.loading = false; });
+    }
+
+    // Wires a fetched blob to the clip's <video>.
+    function attachBlob(V, blob) {
+        {
           // Listeners and preload BEFORE src. Assigning src starts the load, so
           // attaching afterwards and then calling load() restarts it and aborts
           // the first request (visible as ERR_ABORTED on the blob URL).
@@ -631,8 +651,46 @@
           V.el.muted = true;            // as a property, not only an attribute
           V.el.playsInline = true;
           V.el.src = URL.createObjectURL(blob);
-        })
-        .catch(function () { V.loading = false; });
+        }
+    }
+
+    // Swaps the preview for the full-quality file with no visible cut: the new <video> loads UNDER the old
+    // one, is warmed up, jumps to the current frame, and only then does the old one leave. If it cannot
+    // finish (iOS refusing to warm the decoder, say) the preview stays: a soft film that responds beats one
+    // that never upgrades.
+    function upgradeClip(V, blob) {
+      var old = V.el;
+      if (!old || !old.parentNode) return;
+      var nv = old.cloneNode(false);
+      nv.removeAttribute('src');
+      nv.muted = true; nv.playsInline = true; nv.preload = 'auto';
+      var url = URL.createObjectURL(blob), done = false;
+      var drop = function () {
+        try { URL.revokeObjectURL(url); } catch (e) {}
+        if (nv.parentNode) nv.parentNode.removeChild(nv);
+      };
+      var finish = function () {
+        if (done) return;
+        done = true;
+        var oldSrc = old.src;
+        V.el = nv;
+        if (old.parentNode) old.parentNode.removeChild(old);
+        try { if (oldSrc && oldSrc.indexOf('blob:') === 0) URL.revokeObjectURL(oldSrc); } catch (e) {}
+        read();
+      };
+      nv.addEventListener('loadedmetadata', function () {
+        var seekTo = function () {
+          try { nv.currentTime = clamp(V.cur, 0, 0.999) * (nv.duration || 1) + 0.001; } catch (e) {}
+        };
+        var go = function () { try { nv.pause(); } catch (e) {} seekTo(); };
+        var pr;
+        try { pr = nv.play(); } catch (e) { pr = null; }
+        if (pr && pr.then) pr.then(go, seekTo); else go();
+      });
+      nv.addEventListener('seeked', function () { if (!done && nv.readyState >= 2) finish(); });
+      setTimeout(function () { if (!done) drop(); }, 8000);
+      old.parentNode.insertBefore(nv, old);
+      nv.src = url;
     }
 
     // ---- image sequence ---------------------------------------------------
