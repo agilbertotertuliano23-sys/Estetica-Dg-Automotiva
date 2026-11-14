@@ -168,6 +168,8 @@
   .esc__hint { font-size: var(--sc-t-sm, 0.9rem); }
   .esc__tag { font-size: var(--sc-t-xs, 0.78rem); padding: 0.42rem 0.7rem; }
   .esc__btn { flex: 1 1 9.5rem; max-width: 14rem; }
+  /* na imagem a moto está à esquerda e o carro à direita: os botões seguem a mesma ordem (a moto primeiro) */
+  .esc__actions [data-esc-pick="moto"] { order: -1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
